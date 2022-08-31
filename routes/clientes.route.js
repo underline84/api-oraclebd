@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const oracledb = require('oracledb');
-const connAttrsOracle = require('../config/conection');
+const { connAttrsOracle } = require('../config/conection');
+
 
 // const jwt = require('jsonwebtoken');
 // const dotenv = require('dotenv');
@@ -13,10 +14,10 @@ router.use(bodyParser.json());
 // Http Method: GET
 // URI        : /clientes
 // Read all the clientes
-router.get('/', function (req, res, next) {
+router.get('/', async (req, res, next) => {
     "use strict";
 
-    oracledb.getConnection(connAttrsOracle, function (err, connection) {
+    oracledb.getConnection(connAttrsOracle, async (err, connection) => {
         if (err) {
             // Error connecting to DB
             res.set('Content-Type', 'application/json');
@@ -30,7 +31,7 @@ router.get('/', function (req, res, next) {
 
         connection.execute("select * from tabela_de_clientes", {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
-        }, function (err, result) {
+        }, async (err, result) => {
             if (err) {
                 res.set('Content-Type', 'application/json');
                 res.status(500).send(JSON.stringify({
@@ -44,7 +45,7 @@ router.get('/', function (req, res, next) {
             }
             // Release the connection
             connection.release(
-                function (err) {
+                async (err) => {
                     if (err) {
                         console.error(err.message);
                     } else {
