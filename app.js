@@ -6,10 +6,12 @@ const app = express();
 const clientesRoute = require('./routes/clientes.route');
 const pessoasRoute = require('./routes/pessoa.route');
 const loginAD = require('./routes/login.ad.route');
+const pessoaTasy = require('./routes/pessoa.fisica.route');
 
 app.use('/clientes', clientesRoute);
 app.use('/pessoas', pessoasRoute);
 app.use('/ad', loginAD);
+app.use('/pessoatasy', pessoaTasy);
 
 //console.log(process.env.DOMAIN_CONTROLLER);
 
