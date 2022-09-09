@@ -19,7 +19,7 @@ const { connAttrsMySQLIntranet } = require("../config/conection");
 (async () => {
 
     // create the pool
-    const pool = mysql.createPool({host:'192.168.0.23', user: 'root', password: '@M4d4r4$Uch1h4@', database: 'intranet'});
+    const pool = mysql.createPool();
     // now get a Promise wrapped instance of that pool
     const promisePool = pool.promise();
     // query database using promises
